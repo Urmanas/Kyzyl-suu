@@ -11,7 +11,7 @@ def create_order(request, tour_id):
             order = form.save(commit=False)
             order.tour = tour
             order.save()
-            return redirect("order_success")
+            return redirect("orders:order_success")
     else:
         form = OrderForm()
 
@@ -19,3 +19,6 @@ def create_order(request, tour_id):
         "tour": tour,
         "form": form
     })
+
+def order_success(request):
+    return render(request, 'orders/order_success.html')
