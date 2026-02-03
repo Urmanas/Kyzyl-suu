@@ -5,6 +5,7 @@ class Tour(models.Model):
     description = models.TextField()
     duration_days = models.PositiveIntegerField()
     price = models.PositiveIntegerField()
+    max_people = models.PositiveIntegerField(default=10)
     image = models.ImageField(upload_to='media', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

@@ -37,6 +37,12 @@
                 Book this tour
             </a>
         </div>
+
+        <p class="text-sm text-gray-500 mb-4">
+            Available spots:
+            {{ tour.max_people|add:"-"|add:tour.orders.all|length }}
+        </p>
+        
     </div>
 
 </div>

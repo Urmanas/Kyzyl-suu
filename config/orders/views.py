@@ -10,7 +10,15 @@ def create_order(request, tour_id):
         if form.is_valid():
             order = form.save(commit=False)
             order.tour = tour
-            order.save()
+            existing_people = sum(
+    o.people for o in tour.orders.all()
+)
+
+            if existing_people + order.people > tour.max_people:
+                form.add_error("people", "Not enough available spots for this tour.")
+            else:
+                order.save()
+
             return redirect("orders:order_success")
     else:
         form = OrderForm()
