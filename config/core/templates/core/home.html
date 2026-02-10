@@ -1,0 +1,64 @@
+{% extends "core/base.html" %}
+
+{% block title %}Home | Kyzyl Suu Trails{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="mb-16 text-center">
+    <h1 class="text-5xl font-extrabold mb-4">
+        Explore Kyzyl Suu 🏔️
+    </h1>
+    <p class="text-gray-600 max-w-3xl mx-auto text-lg">
+        Authentic hiking experiences in the mountains of Kyrgyzstan.
+        Guided tours, breathtaking views, and unforgettable memories.
+    </p>
+</section>
+
+<!-- TOURS GRID -->
+<section class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    {% for tour in tours %}
+    <div class="bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden">
+
+        {% if tour.image %}
+        <img src="{{ tour.image.url }}"
+             alt="{{ tour.title }}"
+             class="h-56 w-full object-cover">
+        {% endif %}
+
+        <div class="p-6 flex flex-col h-full">
+            <h3 class="text-2xl font-semibold mb-2">
+                <a href="{% url 'tour_detail' tour.id %}"
+                   class="hover:text-green-700 transition">
+                    {{ tour.title }}
+                </a>
+            </h3>
+
+            <p class="text-gray-600 mb-4">
+                {{ tour.description|truncatechars:120 }}
+            </p>
+
+            <div class="mt-auto flex items-center justify-between">
+                <div class="text-sm text-gray-500">
+                    ⏱ {{ tour.duration_days }} days
+                </div>
+                <div class="text-lg font-bold text-green-700">
+                    ${{ tour.price }}
+                </div>
+            </div>
+
+            <a href="{% url 'tour_detail' tour.id %}"
+               class="mt-4 inline-block text-center bg-green-700 text-white py-2 rounded-lg hover:bg-green-800 transition">
+                View Details
+            </a>
+        </div>
+
+    </div>
+    {% empty %}
+    <p class="col-span-full text-center text-gray-500">
+        Tours coming soon.
+    </p>
+    {% endfor %}
+</section>
+
+{% endblock %}

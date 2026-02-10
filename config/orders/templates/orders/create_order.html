@@ -1,0 +1,69 @@
+{% extends "core/base.html" %}
+
+{% block title %}Book {{ tour.title }}{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto bg-white p-8 rounded-2xl shadow-lg">
+
+    <h1 class="text-3xl font-bold mb-2">
+        Book this tour
+    </h1>
+
+    <p class="text-gray-600 mb-6">
+        {{ tour.title }} · {{ tour.duration_days }} days · ${{ tour.price }}
+    </p>
+
+    <form method="post" class="space-y-5">
+        {% csrf_token %}
+
+        <!-- Full name -->
+        <div>
+            <label class="block text-sm font-medium mb-1">
+                Full name
+            </label>
+            <input type="text" name="full_name"
+                   value="{{ form.full_name.value|default:'' }}"
+                   class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-green-600 focus:outline-none"
+                   required>
+        </div>
+
+        <!-- Phone -->
+        <div>
+            <label class="block text-sm font-medium mb-1">
+                Phone number
+            </label>
+            <input type="text" name="phone"
+                   value="{{ form.phone.value|default:'' }}"
+                   class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-green-600 focus:outline-none"
+                   required>
+        </div>
+
+        <!-- Email -->
+        <div>
+            <label class="block text-sm font-medium mb-1">
+                Email (optional)
+            </label>
+            <input type="email" name="email"
+                   value="{{ form.email.value|default:'' }}"
+                   class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-green-600 focus:outline-none">
+        </div>
+
+        <!-- People -->
+        <div>
+            <label class="block text-sm font-medium mb-1">
+                Number of people
+            </label>
+            <input type="number" name="people" min="1"
+                   value="{{ form.people.value|default:1 }}"
+                   class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-green-600 focus:outline-none">
+        </div>
+
+        <!-- Submit -->
+        <button type="submit"
+                class="w-full bg-green-700 text-white py-3 rounded-lg text-lg font-semibold hover:bg-green-800 transition">
+            Confirm Booking
+        </button>
+    </form>
+
+</div>
+{% endblock %}
